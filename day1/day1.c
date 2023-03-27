@@ -3,7 +3,7 @@
 
 // **
 int main(void) {
-  FILE *fp = fopen("./input", "r");
+  FILE *fp = fopen("input", "r");
   long calories_sum_1 = 0;
   long calories_sum_2 = 0;
   long calories_sum_3 = 0;
