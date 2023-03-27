@@ -49,32 +49,110 @@ int outcome(char opp, char me) {
   }
 }
 
-// *
+// 1 rock, 2 paper, 3 scissors
+int choice(char opp, char me) {
+  switch (opp) {
+  case 'A':
+    switch (me) {
+    case 'X':
+      return 3;
+      break;
+    case 'Y':
+      return 1;
+      break;
+    case 'Z':
+      return 2;
+      break;
+    default:
+      printf("invalid option\n");
+      return 1000;
+    }
+    break;
+  case 'B':
+    switch (me) {
+    case 'X':
+      return 1;
+      break;
+    case 'Y':
+      return 2;
+      break;
+    case 'Z':
+      return 3;
+      break;
+    default:
+      printf("invalid option\n");
+      return 1000;
+    }
+    break;
+  case 'C':
+    switch (me) {
+    case 'X':
+      return 2;
+      break;
+    case 'Y':
+      return 3;
+      break;
+    case 'Z':
+      return 1;
+      break;
+    default:
+      printf("invalid option\n");
+      return 1000;
+    }
+    break;
+  default:
+    printf("invalid option\n");
+    return 1000;
+  }
+}
+
+// **
 int main(void) {
   FILE *fp = fopen("input", "r");
   char *line;
   size_t n;
-  int score = 0;
+  int score1 = 0;
+  int score2 = 0;
   while (getline(&line, &n, fp) >= 0) {
     char opp = line[0];
     char me = line[2];
+
+    // first problem
     switch (me) {
     case 'X':
-      score += 1;
+      score1 += 1;
       break;
     case 'Y':
-      score += 2;
+      score1 += 2;
       break;
     case 'Z':
-      score += 3;
+      score1 += 3;
       break;
     default:
       printf("invalid option\n");
       break;
     }
-    score += outcome(opp, me) * 3;
+    score1 += outcome(opp, me) * 3;
+
+    // second problem
+    switch (me) {
+    case 'X':
+      score2 += 0;
+      break;
+    case 'Y':
+      score2 += 3;
+      break;
+    case 'Z':
+      score2 += 6;
+      break;
+    default:
+      printf("invalid option\n");
+      break;
+    }
+    score2 += choice(opp, me);
   }
   fclose(fp);
-  printf("%d\n", score);
+  printf("%d\n", score1);
+  printf("%d\n", score2);
   return 0;
 }
