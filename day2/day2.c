@@ -3,50 +3,10 @@
 
 // 0 lose, 1 tie, 2 win
 int outcome(char opp, char me) {
-  switch (me) {
-  case 'X':
-    switch (opp) {
-    case 'A':
-      return 1;
-    case 'B':
-      return 0;
-    case 'C':
-      return 2;
-    default:
-      printf("invalid option\n");
-      return 1000;
-    }
-    break;
-  case 'Y':
-    switch (opp) {
-    case 'A':
-      return 2;
-    case 'B':
-      return 1;
-    case 'C':
-      return 0;
-    default:
-      printf("invalid option\n");
-      return 1000;
-    }
-    break;
-  case 'Z':
-    switch (opp) {
-    case 'A':
-      return 0;
-    case 'B':
-      return 2;
-    case 'C':
-      return 1;
-    default:
-      printf("invalid option\n");
-      return 1000;
-    }
-    break;
-  default:
-    printf("invalid option\n");
-    return 1000;
-  }
+  int diff = 23 - (me - opp);
+  diff = (diff + 3) % 3;
+  diff = (diff == 0 || diff == 1) ? 1 - diff : diff;
+  return diff;
 }
 
 // 1 rock, 2 paper, 3 scissors
@@ -118,37 +78,11 @@ int main(void) {
     char me = line[2];
 
     // first problem
-    switch (me) {
-    case 'X':
-      score1 += 1;
-      break;
-    case 'Y':
-      score1 += 2;
-      break;
-    case 'Z':
-      score1 += 3;
-      break;
-    default:
-      printf("invalid option\n");
-      break;
-    }
+    score1 += me - 'W'; // X 1, Y 2, Z 3
     score1 += outcome(opp, me) * 3;
 
     // second problem
-    switch (me) {
-    case 'X':
-      score2 += 0;
-      break;
-    case 'Y':
-      score2 += 3;
-      break;
-    case 'Z':
-      score2 += 6;
-      break;
-    default:
-      printf("invalid option\n");
-      break;
-    }
+    score2 += (me - 'X') * 3; // X 0, Y 3, Z 6
     score2 += choice(opp, me);
   }
   fclose(fp);
